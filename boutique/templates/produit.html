@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produit | AZ_Shop</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link rel="icon" href="images/iconLogo.png" type="icon">
+    <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+    <style>
+        .card {
+            position: relative;
+            padding: 5%;
+            width: 40%;
+            height: 450px;
+            /* height: 50%; */
+            justify-content: center;
+            margin: 7% 0 4% 0;
+            background: linear-gradient(#5FC3E4);
+            box-shadow: 0 0 0.3em;
+            border-radius: 5px;
+
+        }
+        .prix{
+            font-weight: bold;
+        }
+        .commander{
+            background-color:white;
+        }
+        .commander:hover{
+            background-color: #5FC3E4;
+        }
+        @media only screen and (max-width: 600px) {
+            .card {
+                position: relative;
+            padding: 5%;
+            width: 80%;
+            height: 350px;
+            justify-content: center;
+            margin: 20% 0 4% 0;
+            background: linear-gradient(#5FC3E4);
+            box-shadow: 0 0 0.3em;
+            border-radius: 5px;
+            }
+            .nom{
+                font-size:medium;
+            }
+            .card-img-top {
+                position: relative;
+                width: 30%;
+            }
+            .description{
+                font-size: small;
+                height: 50px;
+                width: 150%;
+            }
+            .prix{
+                width: 35%;
+                font-size: x-small;
+                height: 30px;
+                margin-bottom: 5px;
+            }
+            .quantite{
+                width: 40%;
+                height: 30px;
+            }
+            .commander{
+                width: 40%;
+                height: 30px;
+                font-size: x-small;
+                background-color: #5FC3E4;
+
+            }
+        }
+    </style>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+     <!--  header -->
+     <nav class="navbar navbar-expand-lg navbar-light bg-light py-4  position-fixed w-100" style="z-index: 100; top: 0; ">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="{% url 'home' %} ">Shop</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a id="panier" class="nav-link" href="panier">Panier(0)</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Categories
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="#">Jacket</a></li>
+                  <li><a class="dropdown-item" href="#">Pantalon</a></li>
+                  <li><a class="dropdown-item" href="#">T-shirt</a></li>
+                  <li><a class="dropdown-item" href="#">Shoes</a></li>
+                  <li><a class="dropdown-item" href="#">Jeans</a></li>
+                  <li><a class="dropdown-item" href="#">Chemise</a></li>
+
+                </ul>
+              </li>
+            </ul>
+            <form class="d-flex">
+              <input class="form-control me-2" name="searchProd" type="search" placeholder="Entrer le nom du produit..." aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+      </nav>
+<!-- fin header -->
+    <!-- // fin header -->
+    {% block content %}
+    <div class="card position-relative top-100 start-50 translate-middle-x  " class="card" ">
+        <div class=" row g-0 w-75 ">
+            <div class=" col-md-5">
+        <img src="{{Product.image}}" class="card-img w-100 "  width="700px" height="250px" alt="...">
+    </div>
+    <div class="col-md-7">
+        <div class="card-body">
+            <h5 class="card-title nom">{{Product.name}}</h5>
+            <p class="card-text description">{{Product.description}}</p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="form-control mb-3 ms-3 prix">{{Product.price}} MAD</li>
+        </ul>
+        <div>
+            <ul class="list-group list-group-flush">
+                <button id="{{ Product.id }}" class="btn ted btn-success">Commander</button>
+            </ul>
+        </div>
+    </div>
+    </div>
+    </div>
+    {% endblock %}
+
+</body>
+
+{% block js %}
+    <script type="text/javascript">
+        if(localStorage.getItem('panier')==null){
+            var panier= {};
+        }
+        else{
+            panier = JSON.parse(localStorage.getItem('panier'));
+        }
+        $(document).on('click','.ted',function(){
+            console.log('ajouter');
+            var item_id = this.id.toString();
+                
+            if(panier[item_id] != undefined){
+                panier[item_id] = panier[item_id]+1;
+            }else{
+                panier[item_id] = 1;
+            }
+            console.log(panier);
+            localStorage.setItem('panier', JSON.stringify(panier));
+        });
+
+    </script>
+{% endblock %}
+
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+
+</html>
+

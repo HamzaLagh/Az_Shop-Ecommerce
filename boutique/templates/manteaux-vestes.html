@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{%load static%}
+
+{% block content %}
+ {% comment %} <h3 class="text-center m-5 p-5">POPULAR PRODUITS</h3> {% endcomment %}
+        <div class="container">
+                <div class="row mt-5 ms-5">
+                {% for Product in post_by_category  %}
+                <div class="col">
+                    <div id="card-prod" class="card" style="width: 21rem; margin-bottom:5rem;">
+                        <img src="{{Product.image}}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                          <h5 id="aa{{Product.id}}" class="card-title">{{Product.name}}</h5>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                          <li id="price{{Product.id}}" class="list-group-item">{{Product.price}} DH</li>
+                          <li class="list-group-item">
+                            <div class="col " style="width:800px;">
+                                <button class="button-reset active" value="S">S</button>
+                                <button class="button-reset active" aria-current="true" value="S">M</button>
+                                <button class="button-reset" value="S">L</button>
+                                <button class="button-reset" value="S">XL</button>
+                                <button class="button-reset" value="S">XXL</button>
+                                <button class="button-reset" value="S">XXXL</button>                              
+                              </div>
+                         </li>
+                          <li class="list-group-item">A third item</li>
+                        </ul>
+                        <div class="card-body">
+                          <a id="{{ Product.id }}" class="btn ted btn-primary">Acheter maintenant</a>
+                          <a href="{{Product.id}}" class="btn mt-3">Voir detaille</a>
+                          <!-- <a href="#" class="card-link">Another link</a> -->
+                        </div>
+                      </div>
+                      
+                </div>
+                {% endfor %}
+                
+        </div>
+    </div>
+{% endblock %}

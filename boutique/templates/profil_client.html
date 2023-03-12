@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{%load static%}
+
+{% block content %}
+<div class="row m-5">
+    <div class="col-md-12 m-5">
+      <form method="GET" class="p-5 w-75">
+        {% comment %} {% for Commande in client_object  %} {% endcomment %}
+          <input type="hidden" id="items", name="items" value="{{Client.nom}}">
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="inputEmail4">Prénom</label>
+              <input type="text" id="prenom" name="prenom" class="form-control" id="inputName" placeholder="Prénom" value="{{Client.nom}}">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="inputPassword4">Nom</label>
+              <input type="text" id="nom" name="nom" class="form-control" id="inputName" placeholder="Nom" value={{Commande.nom}}>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="inputEmail4">Email</label>
+              <input type="email" id="email" name="email" class="form-control" id="inputEmail4" placeholder="Email">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="inputPassword4">Password</label>
+              <input type="password" id="mdps" name="mdps" class="form-control" id="inputPassword4" placeholder="Password">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputAddress">Address</label>
+            <input type="text" id="adress" name="adress" class="form-control" id="inputAddress" placeholder="1234 Main St">
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <label for="inputState">Pays</label>
+              <select id="inputState" class="form-control" disabled>
+                <option selected>Maroc</option>
+                <option>...</option>
+              </select>
+            </div>
+            <div class="form-group col-md-4">
+              <label for="inputState">Ville</label>
+              <select id="inputState" id="ville" name="ville" class="form-control">
+                <option selected>Choose...</option>
+                <option>...</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputAddress">Somme total à payer</label>
+            <input type="readonly" id="total" name="total" class="form-control bg-dark text-warning w-25" >
+          </div>
+          <div class="form-group">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="gridCheck">
+              <label class="form-check-label" for="gridCheck">
+                Check me out
+              </label>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Sign in</button>
+      </form>
+    </div>
+  </div>
+  {% comment %} {% endfor %} {% endcomment %}
+  {% endblock %}
